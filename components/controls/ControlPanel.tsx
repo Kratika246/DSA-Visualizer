@@ -21,10 +21,11 @@ const ControlPanel = () => {
   const isDisabled = !steps.length;
 
   return (
-    <div className="w-full flex flex-col items-center gap-4 mt-6">
+    /* Changed to flex-wrap and responsive padding to prevent overflow on mobile */
+    <div className="w-full flex flex-col items-center gap-6 mt-6 px-4">
       
-      {/* Playback Controls */}
-      <div className="flex items-center gap-3">
+      {/* Playback Controls: flex-wrap allows buttons to wrap if the screen is tiny */}
+      <div className="flex flex-wrap justify-center items-center gap-3">
         <ButtonUI variant="prev" onClick={prev}/>
 
         {!isPlaying ? (
@@ -38,59 +39,64 @@ const ControlPanel = () => {
         <ButtonUI variant="reset" onClick={reset}/>
       </div>
 
-      {/* Speed Control */}
-<div className="flex items-center gap-3 w-64 select-none">
-  
-  <span className="text-xs text-gray-500 tracking-wide">
-    Speed
-  </span>
+      {/* Speed Control & AutoToggle Container: 
+          On mobile, these will stack. On desktop (md:), they will sit side-by-side.
+      */}
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+        <div className="flex items-center gap-3 w-64 select-none">
+          <span className="text-xs text-gray-500 tracking-wide">
+            Speed
+          </span>
 
-  {/* Minus */}
-  <button
-    onClick={() => setSpeed( Math.max(100, speed - 100))}
-    className="text-gray-500 text-sm px-1 hover:text-gray-300 transition "
-    aria-label="Decrease speed"
-  >
-    +
-  </button>
+          {/* Minus */}
+          <button
+            onClick={() => setSpeed( Math.max(100, speed - 100))}
+            className="text-gray-500 text-sm px-1 hover:text-gray-300 transition "
+            aria-label="Decrease speed"
+          >
+            +
+          </button>
 
-  {/* Slider */}
-  <input
-    type="range"
-    min={100}
-    max={1000}
-    step={100}
-    value={speed}
-    onChange={(e) => setSpeed(Number(e.target.value))}
-    className="
-      w-full h-0.5 appearance-none bg-gray-700/40 rounded-full cursor-pointer
+          {/* Slider */}
+          <input
+            type="range"
+            min={100}
+            max={1000}
+            step={100}
+            value={speed}
+            onChange={(e) => setSpeed(Number(e.target.value))}
+            className="
+              w-full h-0.5 appearance-none bg-gray-700/40 rounded-full cursor-pointer
 
-      [&::-webkit-slider-thumb]:appearance-none
-      [&::-webkit-slider-thumb]:h-3
-      [&::-webkit-slider-thumb]:w-3
-      [&::-webkit-slider-thumb]:rounded-full
-      [&::-webkit-slider-thumb]:bg-gray-300
-      [&::-webkit-slider-thumb]:transition
-      [&::-webkit-slider-thumb]:hover:scale-110
+              [&::-webkit-slider-thumb]:appearance-none
+              [&::-webkit-slider-thumb]:h-3
+              [&::-webkit-slider-thumb]:w-3
+              [&::-webkit-slider-thumb]:rounded-full
+              [&::-webkit-slider-thumb]:bg-gray-300
+              [&::-webkit-slider-thumb]:transition
+              [&::-webkit-slider-thumb]:hover:scale-110
 
-      [&::-moz-range-thumb]:h-3
-      [&::-moz-range-thumb]:w-3
-      [&::-moz-range-thumb]:rounded-full
-      [&::-moz-range-thumb]:bg-gray-300
-      [&::-moz-range-thumb]:border-none
-    "
-  />
+              [&::-moz-range-thumb]:h-3
+              [&::-moz-range-thumb]:w-3
+              [&::-moz-range-thumb]:rounded-full
+              [&::-moz-range-thumb]:bg-gray-300
+              [&::-moz-range-thumb]:border-none
+            "
+          />
 
-  {/* Plus */}
-  <button
-    onClick={() => setSpeed(Math.min(1000, speed + 100))}
-    className="text-gray-500 text-sm px-1 hover:text-gray-300 transition"
-    aria-label="Increase speed"
-  >
-    −
-  </button>
-</div>
-      <AutoToggle/>
+          {/* Plus */}
+          <button
+            onClick={() => setSpeed(Math.min(1000, speed + 100))}
+            className="text-gray-500 text-sm px-1 hover:text-gray-300 transition"
+            aria-label="Increase speed"
+          >
+            −
+          </button>
+        </div>
+
+        {/* AutoToggle now sits nicely next to the speed on desktop */}
+        <AutoToggle/>
+      </div>
     </div>
   );
 };

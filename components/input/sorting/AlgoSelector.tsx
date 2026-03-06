@@ -30,20 +30,23 @@ const AlgoSelector = () => {
     }
   }, [params?.algorithm, setAlgorithm, algorithm]);
 
+  
   return (
     <Box
       sx={{
         display: "flex",
+        /* Changed to wrap elements if they don't fit */
+        flexWrap: "wrap", 
         justifyContent: "space-around",
+        gap: "8px", // Added gap for wrapped states
         padding: "4px",
         borderRadius: "6px",
         border: "0.5px solid rgba(209,213,220,0.25)",
         background: "rgba(209,213,220,0.03)",
-        width: "100%", // Changed "full" to "100%" for MUI compatibility
+        width: "100%",
       }}
     >
       {algos.map((algo) => {
-        // 2. Local active check
         const isThisAlgoActive = algorithm === algo.key;
 
         return (
@@ -54,15 +57,18 @@ const AlgoSelector = () => {
             style={{
               position: "relative",
               cursor: "pointer",
-              padding: "4px 10px",
+              padding: "6px 12px", // Slightly more padding for touch targets
               borderRadius: "6px",
               zIndex: 1,
-              textDecoration: "none" // Clean up link styles
+              textDecoration: "none",
+              /* Ensure buttons grow equally if wrapped */
+              flex: "1 1 auto",
+              textAlign: "center"
             }}
           >
             <Typography
               sx={{
-                fontSize: "0.85rem",
+                fontSize: { xs: "0.75rem", sm: "0.85rem" }, // Smaller font on tiny screens
                 color: isThisAlgoActive
                   ? "rgba(209,213,220,1)"
                   : "rgba(209,213,220,0.55)",
@@ -78,7 +84,7 @@ const AlgoSelector = () => {
             <AnimatePresence>
               {isThisAlgoActive && (
                 <motion.div
-                  layoutId="algo-active-bg" // Keeps the "sliding" animation
+                  layoutId="algo-active-bg"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -103,5 +109,6 @@ const AlgoSelector = () => {
     </Box>
   );
 };
+
 
 export default AlgoSelector;

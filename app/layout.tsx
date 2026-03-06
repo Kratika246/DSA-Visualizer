@@ -1,8 +1,10 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Sidebar, SidebarSection, SidebarItem, SidebarFolder } from '@/components/sidebar';
 import localFont from 'next/font/local';
+import { Menu, X } from "lucide-react";
 
 const arimo = localFont({
   src: [
@@ -32,83 +34,7 @@ const publicSans = localFont({
   variable: '--font-public-sans',
 })
 
-import {  
-  ArrowUpDown, 
-  GitBranch, 
-  Grid3x3, 
-  Layers,
-  BarChart3,
-  TrendingUp,
-  Shuffle,
-  Binary,
-  GitMerge,
-  Pyramid
-} from 'lucide-react';
-import { algos } from "@/components/input/sorting/AlgoSelector";
-export function AppSidebar() {
-  return (
-    <Sidebar>
-      {/* Sorting Section */}
-      <SidebarFolder title="Sorting" defaultOpen>
-        <SidebarItem href="/sorting/bubble" icon={<BarChart3 className="w-4 h-4" />}>
-          Bubble Sort
-        </SidebarItem>
-        <SidebarItem href="/sorting/selection" icon={<TrendingUp className="w-4 h-4" />}>
-          Selection Sort
-        </SidebarItem>
-        <SidebarItem href="/sorting/insertion" icon={<ArrowUpDown className="w-4 h-4" />}>
-          Insertion Sort
-        </SidebarItem>
-        <SidebarItem href="/sorting/merge" icon={<GitMerge className="w-4 h-4" />}>
-          Merge Sort
-        </SidebarItem>
-        <SidebarItem href="/sorting/quick-sort" icon={<Shuffle className="w-4 h-4" />}>
-          Quick Sort
-        </SidebarItem>
-      </SidebarFolder>
-      {/* Recursion Folder */}
-      <SidebarFolder title="Recursion" icon={<GitBranch className="w-4 h-4" />} defaultOpen>
-        <SidebarItem href="/recursion/fibonacci" nested>
-          Fibonacci
-        </SidebarItem>
-        <SidebarItem href="/recursion/factorial" nested>
-          Factorial
-        </SidebarItem>
-        <SidebarItem href="/recursion/tower-of-hanoi" nested>
-          Tower of Hanoi
-        </SidebarItem>
-      </SidebarFolder>
-
-      {/* Data Structures Folder */}
-      <SidebarFolder title="Data Structures" icon={<Pyramid className="w-4 h-4"/> } defaultOpen>
-        <SidebarItem href="/ds/binary-search-tree" nested>
-          Binary Search Tree
-        </SidebarItem>
-        <SidebarItem href="/ds/linked-list" nested>
-          Linked List
-        </SidebarItem>
-        <SidebarItem href="/ds/stack" nested>
-          Stack
-        </SidebarItem>
-        <SidebarItem href="/ds/queue" nested>
-          Queue
-        </SidebarItem>
-      </SidebarFolder>
-      {/* Dynamic Programming Section */}
-      <SidebarFolder title="Dynamic Programming" defaultOpen>
-        <SidebarItem href="/dp/knapsack" icon={<Grid3x3 className="w-4 h-4" />}>
-          Knapsack
-        </SidebarItem>
-        <SidebarItem href="/dp/lcs" icon={<Binary className="w-4 h-4" />}>
-          Longest Common Subsequence
-        </SidebarItem>
-        <SidebarItem href="/dp/coin-change" icon={<Layers className="w-4 h-4" />}>
-          Coin Change
-        </SidebarItem>
-      </SidebarFolder>
-    </Sidebar>
-  );
-}
+import ClientLayout from "@/components/pages/ClientLayout";
 
 
 
@@ -133,22 +59,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${arimo.variable} ${geistMono.variable} ${publicSans.variable} antialiased  text-white`}>
-        <div className="flex h-screen overflow-hidden">
-          {/* Fixed Sidebar */}
-          <aside className="w-64 flex-none border-r border-white/5 bg-[#0d0d0d] md:block">
-            <AppSidebar />
-          </aside>
-
-          {/* Independent Scrollable Content Area */}
-          <main className="flex-1 relative overflow-y-auto overflow-x-hidden">
-            <div className="pl-6 max-w-7xl mx-auto">
-              {children}
-            </div>
-          </main>
-        </div>
+      <body className={`${geistSans.variable} ${arimo.variable} ${geistMono.variable} ${publicSans.variable} antialiased text-white`}>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

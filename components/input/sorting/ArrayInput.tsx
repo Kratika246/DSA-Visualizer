@@ -21,58 +21,41 @@ const ArrayInput = () => {
     setData({ mode: "sorting", data: { array: numberArray } });
   };
 
-
   return (
-    <div className="flex w-full">
-      <div className="w-full max-w-2xl mx-auto flex flex-col gap-2">
+    /* Changed to flex-col for mobile, sm:flex-row for desktop */
+    <div className="flex flex-col sm:flex-row w-full gap-4 items-end">
+      <div className="w-full max-w-2xl flex flex-col gap-2">
+        <label className="text-sm text-[rgba(209_213_220_/0.75)]">
+          Input Array
+        </label>
 
-      {/* Label */}
-      <label className="text-sm text-[rgba(209_213_220_/0.75)]">
-        Input Array
-      </label>
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="e.g. 5, 3, 8, 1, 4"
+            className="w-full px-4 py-2 text-sm bg-transparent border border-gray-700/40 rounded-md text-gray-200 placeholder-gray-500 outline-none transition-all focus:border-[rgba(209_213_220_/0.5)] focus:border-[0.5px] focus:bg-[rgba(209_213_220_/0.05)]"
+            onChange={(e)=>setTextValue(e.target.value)}
+            value={textValue}
+          />
 
-      {/* Input */}
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="e.g. 5, 3, 8, 1, 4"
-          className="
-            w-full
-            px-4
-            py-2
-            text-sm
-            bg-transparent
-            border
-            border-gray-700/40
-            rounded-md
-            text-gray-200
-            placeholder-gray-500
-            outline-none
-            transition-all
+          {/* Hidden on very small screens to prevent overlap, or keep as is */}
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500 hidden xs:block">
+            numbers only
+          </span>
+        </div>
 
-            focus:border-[rgba(209_213_220_/0.5)]
-            focus:border-[0.5px]
-            focus:bg-[rgba(209_213_220_/0.05)]
-          "
-          onChange={(e)=>setTextValue(e.target.value)}
-          value={textValue}
-        />
-
-        {/* Helper text */}
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">
-          numbers only
-        </span>
+        <p className="text-xs text-gray-500">
+          Separate numbers with commas or spaces
+        </p>
       </div>
-
-      {/* Hint */}
-      <p className="text-xs text-gray-500">
-        Separate numbers with commas or spaces
-      </p>
+      
+      {/* Adjusted padding/alignment for the button container */}
+      <div className="flex items-center justify-center sm:justify-start pb-1">
+        <ButtonUI variant="visualize" onClick={visualize}/> 
+      </div>
     </div>
-    <div className="flex align-middle px-4 pb-6.25 pt-6.75"><ButtonUI variant="visualize" onClick={visualize}/> </div>
-    </div>
-        
   );
 };
+
 
 export default ArrayInput;

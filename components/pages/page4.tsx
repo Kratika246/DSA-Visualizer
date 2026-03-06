@@ -13,7 +13,7 @@ const TechCard = ({
 }) => {
   return (
     <div
-      className="group relative h-45 w-50 overflow-hidden rounded-xl border transition-all duration-300 hover:scale-[1.02]"
+      className="group relative h-45 w-50 overflow-hidden rounded-xl border transition-all duration-300 hover:scale-[1.02] max-md:w-full"
       style={{
         borderColor: 'rgba(255, 255, 255, 0.1)',
         backgroundColor: 'rgba(255, 255, 255, 0.02)',
@@ -89,10 +89,10 @@ export default function Page4() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-[#161616] px-16 pt-36 flex gap-2 justify-between">
+    <div className="w-full min-h-screen bg-[#161616] px-16 pt-36 flex gap-2 justify-between max-lg:flex-col max-lg:px-6 max-lg:pt-24 max-lg:gap-12 max-lg:overflow-hidden">
       {/* Badge */}
-      <div>
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8"
+      <div className="max-lg:flex max-lg:flex-col max-lg:items-center max-lg:text-center w-full lg:w-auto">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 max-lg:mb-6"
             style={{
             borderColor: 'rgba(255, 255, 255, 0.1)',
             backgroundColor: 'rgba(255, 255, 255, 0.03)',
@@ -102,20 +102,20 @@ export default function Page4() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-white text-6xl font-bold mb-4 max-w-xl -tracking-widest leading-tight">
+        <h1 className="text-white text-6xl font-bold mb-4 max-w-xl -tracking-widest leading-tight max-lg:text-4xl max-lg:max-w-full">
             Built with Next.js 16 and TypeScript
         </h1>
 
         {/* Subheading */}
         <p
-            className="text-lg mb-16 max-w-lg"
+            className="text-lg mb-16 max-w-lg max-lg:mb-12 max-lg:max-w-full"
             style={{ color: 'rgba(156, 163, 175, 0.8)' }}
         >
             Using React Flow for the graph visualization, and Framer Motion for smooth animations.
         </p>
       </div>
       {/* Tech Cards Grid */}
-      <div className="grid grid-cols-2 gap-x-6 max-w-3xl gap-y-3 pb-24">
+      <div className="grid grid-cols-2 gap-x-6 max-w-3xl gap-y-3 pb-24 max-md:grid-cols-1 w-full lg:w-auto max-lg:gap-y-4 max-lg:pb-16 max-lg:mx-auto lg:mx-0">
         {techStack.map((tech, index) => (
           <TechCard
             key={index}
