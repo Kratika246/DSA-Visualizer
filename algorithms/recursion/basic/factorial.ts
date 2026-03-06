@@ -3,13 +3,15 @@ import { RecursionStep } from "@/types/Step";
 const Factorial = (args: number[]) => {
   const n = args[0];
   let steps: RecursionStep[] = [];
-  let cs: { fn: string; args: number[]; returned?: number }[] = [];
+  let cs: RecursionStep['callStack'] = [];
 
   const fact = (num: number): number => {
     // push call
     cs.push({ fn: "factorial", args: [num] });
     steps.push({
       type: "recursion",
+      treeNodes: [],
+      activeNodeId: 0,
       callStack: [...cs],
       activeCallIndex: cs.length - 1,
     });
@@ -20,12 +22,16 @@ const Factorial = (args: number[]) => {
 
       steps.push({
         type: "recursion",
+        treeNodes: [],
+        activeNodeId: 0,
         callStack: [...cs],
         activeCallIndex: cs.length - 1,
       });
       cs.pop();
       steps.push({
         type: "recursion",
+        treeNodes: [],
+        activeNodeId: 0,
         callStack: [...cs],
         activeCallIndex: cs.length - 1,
       });
@@ -41,12 +47,16 @@ const Factorial = (args: number[]) => {
 
       steps.push({
         type: "recursion",
+        treeNodes: [],
+        activeNodeId: 0,
         callStack: [...cs],
         activeCallIndex: cs.length - 1,
       });
       cs.pop();
       steps.push({
         type: "recursion",
+        treeNodes: [],
+        activeNodeId: 0,
         callStack: [...cs],
         activeCallIndex: cs.length? cs.length - 1: undefined,
       });
