@@ -91,7 +91,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       {/* Mobile Toggle Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-60 p-2 bg-[#1a1a1a] border border-white/10 rounded-md md:hidden"
+        className="fixed top-4 right-4 z-60 p-2  border border-white/10 rounded-md md:hidden"
       >
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
@@ -112,7 +112,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
       {/* Main Content Area */}
       <main className="flex-1 relative overflow-y-auto overflow-x-hidden">
-        <div className="p-6 max-w-7xl mx-auto">
+        <div className=" max-w-7xl mx-auto ">
           {children}
         </div>
       </main>

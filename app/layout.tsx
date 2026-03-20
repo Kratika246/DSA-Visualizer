@@ -61,7 +61,7 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark ">
       <body className={`${geistSans.variable} ${arimo.variable} ${geistMono.variable} ${publicSans.variable} antialiased text-white`}>
         <ClientLayout>
           {children}
