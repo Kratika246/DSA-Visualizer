@@ -445,13 +445,11 @@ function StatsRow({ nodes, totalSteps, currStep }: StatsProps) {
   ];
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center flex-wrap gap-x-4 gap-y-1">
       {items.map(({ label, value, color }) => (
         <div key={label} className="flex items-center gap-1.5">
-          <span
-            className="text-[10px] font-mono tracking-widest"
-            style={{ color: "rgba(148,163,184,0.6)" }}
-          >
+          <span className="text-[10px] font-mono tracking-widest hidden sm:inline"
+            style={{ color: "rgba(148,163,184,0.6)" }}>
             {label}
           </span>
           <motion.span
@@ -468,8 +466,6 @@ function StatsRow({ nodes, totalSteps, currStep }: StatsProps) {
     </div>
   );
 }
-
-// ─── Main Component ───────────────────────────────────────────────────────────
 
 const RecursionTreeVisualizer: React.FC = () => {
   
@@ -536,12 +532,12 @@ const RecursionTreeVisualizer: React.FC = () => {
   // ── Empty state ──
   if (!steps.length) {
     return (
-      <div className="flex flex-1 items-center justify-center gap-8 p-6">
+      <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-4 p-4">
         {/* Callstack empty */}
         <Callstack />
         {/* Tree empty */}
         <div
-          className="flex-1 flex flex-col items-center justify-center rounded-xl border min-h-[70vh]"
+          className="w-full lg:flex-1 flex flex-col items-center justify-center rounded-xl border min-h-[200px] lg:min-h-[70vh]"
           style={{
             borderColor: "rgba(255,255,255,0.07)",
             background: "rgba(255,255,255,0.02)",
@@ -564,87 +560,90 @@ const RecursionTreeVisualizer: React.FC = () => {
   if (!recursionStep) return null;
 
   return (
-    <div className="flex flex-1 gap-4 p-4 min-h-0">
+    <div className="flex flex-col lg:flex-row flex-1 gap-4 p-4 min-h-0">
       {/* ── Call Stack (from shared component) ── */}
       <Callstack />
 
       {/* ── Tree Panel ── */}
-      {currAlgo?.type==='linear'?
-      "Tree Visualization is not needed !"
-    :
-    <div
-        className="flex flex-col flex-1 rounded-xl border overflow-hidden"
-        style={{
-          borderColor: "rgba(255,255,255,0.07)",
-          background: "rgba(255,255,255,0.02)",
-        }}
-      >
-        {/* Header bar */}
-        <div
-          className="flex items-center justify-between px-4 py-2.5 border-b shrink-0"
-          style={{ borderColor: "rgba(255,255,255,0.06)" }}
-        >
-          <div className="flex items-center gap-3">
-            {/* Traffic light dots */}
-            <div className="flex gap-1.5">
-              {["rgba(239,68,68,0.6)", "rgba(251,191,36,0.6)", "rgba(52,211,153,0.6)"].map(
-                (c, i) => (
-                  <div
-                    key={i}
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ background: c }}
-                  />
-                )
-              )}
-            </div>
-            <span
-              className="text-xs font-mono tracking-widest"
-              style={{ color: "rgba(148,163,184,0.5)" }}
-            >
-              RECURSION TREE
-            </span>
-          </div>
-
-          <StatsRow
-            nodes={treeNodes}
-            totalSteps={steps.length}
-            currStep={currStep}
-          />
+      {currAlgo?.type === 'linear' ?
+        <div className="flex items-center justify-center text-sm text-slate-400 py-4">
+          Tree Visualization is not needed!
         </div>
-
-        {/* Tree canvas — horizontally scrollable */}
+        :
         <div
-          ref={scrollRef}
-          className="flex-1 overflow-auto"
-          style={{ scrollbarWidth: "thin" }}
+          className="flex flex-col flex-1 rounded-xl border overflow-hidden min-h-[400px] lg:min-h-0"
+          style={{
+            borderColor: "rgba(255,255,255,0.07)",
+            background: "rgba(255,255,255,0.02)",
+          }}
         >
+          {/* Header bar */}
           <div
-            style={{
-              minWidth: "100%",
-              minHeight: "100%",
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "center",
-              padding: "24px 40px 40px",
-            }}
+            className="flex items-center justify-between px-4 py-2.5 border-b shrink-0"
+            style={{ borderColor: "rgba(255,255,255,0.06)" }}
           >
-            <TreeCanvas 
-              nodes={treeNodes} 
-              layout={layout} 
-              activeId={activeId}
-              activePath={activePath}
+            <div className="flex items-center gap-3">
+              {/* Traffic light dots */}
+              <div className="flex gap-1.5">
+                {["rgba(239,68,68,0.6)", "rgba(251,191,36,0.6)", "rgba(52,211,153,0.6)"].map(
+                  (c, i) => (
+                    <div
+                      key={i}
+                      className="w-2.5 h-2.5 rounded-full"
+                      style={{ background: c }}
+                    />
+                  )
+                )}
+              </div>
+              <span
+                className="text-xs font-mono tracking-widest hidden sm:block"
+                style={{ color: "rgba(148,163,184,0.5)" }}
+              >
+                RECURSION TREE
+              </span>
+            </div>
+
+            <StatsRow
+              nodes={treeNodes}
+              totalSteps={steps.length}
+              currStep={currStep}
             />
           </div>
-        </div>
 
-        {/* Footer — explanation */}
-        <div
-          className="px-4 py-2.5 border-t flex items-center shrink-0"
-          style={{ borderColor: "rgba(255,255,255,0.06)" }}
-        >
-          <ExplanationPill step={recursionStep} />
+          {/* Tree canvas — scrollable */}
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-auto"
+            style={{ scrollbarWidth: "thin" }}
+          >
+            <div
+              style={{
+                minWidth: "100%",
+                minHeight: "100%",
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "center",
+                padding: "16px 20px 24px",
+              }}
+            >
+              <TreeCanvas
+                nodes={treeNodes}
+                layout={layout}
+                activeId={activeId}
+                activePath={activePath}
+              />
+            </div>
+          </div>
+
+          {/* Footer — explanation */}
+          <div
+            className="px-4 py-2.5 border-t flex items-center shrink-0"
+            style={{ borderColor: "rgba(255,255,255,0.06)" }}
+          >
+            <ExplanationPill step={recursionStep} />
+          </div>
         </div>
-      </div>}
+      }
     </div>
   );
 };

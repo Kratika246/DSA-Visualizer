@@ -20,7 +20,6 @@ const Callstack = () => {
   const activeCallIndex =
     step?.type === "recursion" ? step.activeCallIndex : -1;
 
-  // ✅ Hook ALWAYS runs
   useEffect(() => {
   const el = containerRef.current;
   if (!el || !callStack.length) return;
@@ -37,7 +36,7 @@ const Callstack = () => {
   // ---- EMPTY STATE ----
   if (!steps.length) {
     return (
-      <div className="w-64 p-3 min-h-[70vh] rounded-md border border-white/10 bg-white/5 backdrop-blur">
+      <div className="w-full lg:w-64 p-3 min-h-[30vh] lg:min-h-[70vh] rounded-md border border-white/10 bg-white/5 backdrop-blur">
         <div className="text-xs text-white/60 mb-2 tracking-wide">
           CALL STACK
         </div>
@@ -58,7 +57,7 @@ const Callstack = () => {
 
       <div
         ref={containerRef}
-        className="flex flex-col overflow-y-auto h-[60vh] gap-2 justify-end "
+        className="flex flex-col overflow-y-auto h-[25vh] lg:h-[60vh] gap-2 justify-end "
       >
         <AnimatePresence>
           {[...callStack].reverse().map((frame, rIndex) => {
